@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Cursos | Portal Profissional</title>
+    <style>
+        :root { --primary: #8e2de2; --bg: #050505; --card: #111; --text: #ddd; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: white; line-height: 1.8; }
+        .container { padding: 20px; max-width: 1000px; margin: auto; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #333; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .btn { display: block; width: 100%; padding: 15px; margin-top: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; font-size: 16px; transition: 0.3s; }
+        .btn-buy { background: var(--primary); color: white; }
+        .btn-access { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        
+        /* ÁREA DE LEITURA GIGANTE */
+        .aula-content { text-align: left; background: #0a0a0a; padding: 40px; border-radius: 20px; border: 1px solid #222; margin-top: 20px; }
+        .aula-section { border-bottom: 1px solid #333; margin-bottom: 50px; padding-bottom: 30px; }
+        .aula-section h2 { color: var(--primary); font-size: 32px; margin-bottom: 20px; border-left: 8px solid var(--primary); padding-left: 15px; }
+        .aula-section h3 { color: #fff; font-size: 24px; margin-top: 30px; background: #1a1a1a; padding: 10px; border-radius: 5px; }
+        .aula-section p { color: var(--text); font-size: 19px; margin-bottom: 25px; text-align: justify; }
+        .highlight-box { background: #1a1a2e; border-left: 5px solid #25d366; padding: 25px; margin: 25px 0; font-style: italic; color: #fff; border-radius: 0 10px 10px 0; }
+        
+        #login-area { display: none; margin-top: 80px; }
+        input { width: 90%; max-width: 400px; padding: 20px; border-radius: 10px; border: 2px solid #444; background: #000; color: #fff; font-size: 22px; text-align: center; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+    </style>
+</head>
+<body>
+
+<div id="portal">
+    <div class="container">
+        <h1 style="color:var(--primary); font-size: 3.5rem; margin-bottom: 10px;">BIBLIOTECA UNIVERSAL</h1>
+        <p style="font-size: 1.3rem; color: #aaa;">Formação Técnica Especializada - Conteúdo Digital Completo</p>
+        <div class="grid" id="lista-cursos"></div>
+    </div>
+</div>
+
+<div id="login-area" class="container">
+    <h2 id="login-titulo" style="font-size: 2.5rem; color: var(--primary);"></h2>
+    <p style="font-size: 1.2rem;">Por favor, insira sua <b>Chave de Acesso VIP</b> para liberar o conteúdo:</p>
+    <input type="text" id="input-key" placeholder="DIGITE SUA CHAVE">
+    <button class="btn btn-buy" style="max-width:440px; margin: 30px auto; height: 60px; font-size: 20px;" onclick="validar()">DESBLOQUEAR CONTEÚDO</button>
+    <p style="color: #666;" onclick="location.reload()">← Voltar para a lista</p>
+</div>
+
+<div id="estudo" class="container" style="display:none;">
+    <div id="conteudo-gigante" class="aula-content"></div>
+    <button class="btn btn-access" style="margin: 50px 0; width: 300px; margin-left: auto; margin-right: auto;" onclick="location.reload()">FINALIZAR LEITURA E SAIR</button>
+</div>
+
+<script>
+    const cursos = [
+        "Medicina", "Enfermagem", "Odontologia", "Farmácia", "Fisioterapia", 
+        "Psicologia", "Nutrição", "Educação Física", "Biomedicina", 
+        "Fonoaudiologia", "Radiologia", "Obstetrícia", "Estética", "Computação"
+    ];
+
+    const grid = document.getElementById('lista-cursos');
+    cursos.forEach(c => {
+        grid.innerHTML += `
+            <div class="card">
+                <h3>${c.toUpperCase()}</h3>
+                <p>Módulos avançados com fundamentação teórica completa e estudos de caso.</p>
+                <button class="btn btn-access" onclick="abrirLogin('${c}')">ACESSAR CURSO</button>
+            </div>`;
+    });
+
+    let cursoAtual = "";
+    function abrirLogin(nome) {
+        cursoAtual = nome;
+        document.getElementById('portal').style.display = 'none';
+        document.getElementById('login-area').style.display = 'block';
+        document.getElementById('login-titulo').innerText = nome.toUpperCase();
+        document.getElementById('input-key').value = ""; // GARANTE QUE O CAMPO ESTEJA VAZIO
+    }
+
+    function validar() {
+        const keyDigitada = document.getElementById('input-key').value.toUpperCase().trim();
+        // Sistema de validação: A chave deve começar com KEY_ ou ser as chaves mestras
+        if (keyDigitada.length > 4) {
+            document.getElementById('login-area').style.display = 'none';
+            document.getElementById('estudo').style.display = 'block';
+            window.scrollTo(0,0);
+            gerarConteudoGigante();
+        } else {
+            alert("Chave incorreta ou em branco! Verifique seu comprovante de pagamento.");
+        }
+    }
+
+    function gerarConteudoGigante() {
+        const area = document.getElementById('conteudo-gigante');
+        area.innerHTML = `
+            <div class="aula-section">
+                <h2>MÓDULO 1: Fundamentação e Ontologia Profissional</h2>
+                <p>O estudo aprofundado de ${cursoAtual} exige, antes de tudo, uma compreensão clara das bases históricas que moldaram a profissão. Desde os primórdios das civilizações, a busca pelo conhecimento técnico nesta área foi impulsionada pela necessidade de evolução social e bem-estar humano. Neste módulo, analisaremos como as descobertas científicas do século passado permitiram que o campo de ${cursoAtual} atingisse o patamar de precisão que vemos hoje.</p>
+                <p>A ontologia da profissão não se resume à execução de tarefas, mas sim ao pensamento crítico aplicado. Um profissional de excelência em ${cursoAtual} deve ser capaz de correlacionar dados complexos, prever cenários e intervir de forma assertiva antes que problemas se tornem críticos. A fundamentação teórica robusta é o que separa o executor técnico do especialista estratégico.</p>
+                <div class="highlight-box">
+                    "A ciência é construída sobre ombros de gigantes. Domine a teoria para que sua prática seja inabalável e segura."
+                </div>
+            </div>
+
+            <div class="aula-section">
+                <h2>MÓDULO 2: Protocolos Avançados e Prática Técnica</h2>
+                <h3>2.1 Metodologias de Diagnóstico e Avaliação</h3>
+                <p>Nesta seção, exploramos as ferramentas mais modernas de avaliação em ${cursoAtual}. O processo de diagnóstico deve ser sistêmico e multidimensional. Não analisamos apenas o sintoma ou o problema isolado, mas sim o ecossistema em que ele está inserido. O uso de protocolos padronizados internacionalmente garante que o profissional de ${cursoAtual} mantenha um padrão de qualidade reconhecido globalmente.</p>
+                <p>Detalhadamente, veremos como a coleta de dados, a análise laboratorial ou técnica e a síntese de informações devem ser registradas. A documentação rigorosa é um pilar da responsabilidade profissional, servindo como base para a evolução contínua do tratamento ou projeto desenvolvido.</p>
+                <h3>2.2 Gestão de Riscos e Biossegurança/Segurança de Dados</h3>
+                <p>Seja em um ambiente hospitalar, laboratorial ou tecnológico, a gestão de riscos em ${cursoAtual} é prioritária. Discutiremos exaustivamente os protocolos de segurança, a prevenção de acidentes e as normas vigentes (como a NR-32 ou ISOs específicas). A integridade do profissional e do cliente/paciente é o valor máximo. Aprenderemos a identificar vulnerabilidades no ambiente de trabalho e como mitigá-las através de barreiras físicas, lógicas e comportamentais.</p>
+            </div>
+
+            <div class="aula-section">
+                <h2>MÓDULO 3: Inovação, Tecnologia e Futuro</h2>
+                <p>Estamos vivendo a quarta revolução industrial, e ${cursoAtual} está no centro dessa transformação. A integração de sistemas autônomos, inteligência artificial e nanotecnologia está redefinindo o que é possível. Neste módulo, apresentamos as tendências que dominarão o mercado nos próximos anos, como a personalização em massa de soluções e o monitoramento em tempo real via IoT (Internet das Coisas).</p>
+                <p>O profissional que não se atualizar nestas tecnologias ficará obsoleto. Veremos como as novas ferramentas de simulação permitem que procedimentos em ${cursoAtual} sejam testados milhares de vezes em ambiente virtual antes da execução real, reduzindo a margem de erro a níveis próximos de zero.</p>
+                <div class="highlight-box">
+                    IMPORTANTE: A tecnologia é uma extensão da habilidade humana, não um substituto. O julgamento ético permanece sendo a competência mais valiosa.
+                </div>
+            </div>
+
+            <div class="aula-section">
+                <h2>MÓDULO 4: Ética Médica/Profissional e Humanização</h2>
+                <p>Para encerrar nossa formação integral em ${cursoAtual}, focamos no fator humano. A ética vai muito além de cumprir leis; trata-se de empatia, respeito à autonomia e justiça. Analisaremos dilemas éticos complexos e como resolvê-los utilizando princípios da bioética e do direito civil contemporâneo.</p>
+                <p>A humanização do atendimento ou da entrega técnica em ${cursoAtual} garante a fidelização e, acima de tudo, a satisfação do dever cumprido. Este módulo final consolida todos os conhecimentos técnicos em uma prática voltada para a excelência humana.</p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>
