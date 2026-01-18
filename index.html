@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Cursos | Biblioteca de Saúde & TI</title>
+    <style>
+        :root { --primary: #8e2de2; --bg: #050505; --card: #111; --text: #ccc; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; line-height: 1.6; }
+        .container { padding: 20px; max-width: 900px; margin: auto; text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid #333; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); }
+        .btn { display: block; width: 100%; padding: 12px; margin-top: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; font-size: 14px; }
+        .btn-buy { background: var(--primary); color: white; }
+        .btn-access { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        input { width: 80%; padding: 15px; margin: 15px 0; border-radius: 8px; border: 1px solid var(--primary); background: #000; color: #fff; text-align: center; }
+        .aula-box { background: #161625; padding: 20px; border-radius: 10px; border-left: 5px solid var(--primary); margin-bottom: 20px; text-align: left; }
+        #pix-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+<div id="inicio">
+    <div class="container">
+        <h1 style="color:var(--primary)">BIBLIOTECA UNIVERSAL</h1>
+        <p>Acesse qualquer curso abaixo por apenas <b>R$ 26,90</b></p>
+        
+        <div class="grid">
+            <div class="card"><h3>🩺 Medicina</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_MEDICINA', 'MEDICINA')">ACESSAR</button></div>
+            <div class="card"><h3>💉 Enfermagem</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_ENFERMAGEM', 'ENFERMAGEM')">ACESSAR</button></div>
+            <div class="card"><h3>🦷 Odontologia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_ODONTO', 'ODONTOLOGIA')">ACESSAR</button></div>
+            <div class="card"><h3>💊 Farmácia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_FARMACIA', 'FARMÁCIA')">ACESSAR</button></div>
+            <div class="card"><h3>🦴 Fisioterapia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_FISIO', 'FISIOTERAPIA')">ACESSAR</button></div>
+            <div class="card"><h3>🧠 Psicologia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_PSICO', 'PSICOLOGIA')">ACESSAR</button></div>
+            <div class="card"><h3>🍎 Nutrição</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_NUTRICAO', 'NUTRIÇÃO')">ACESSAR</button></div>
+            <div class="card"><h3>🏃 Ed. Física</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_EDFISICA', 'EDUCAÇÃO FÍSICA')">ACESSAR</button></div>
+            <div class="card"><h3>🔬 Biomedicina</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_BIOMED', 'BIOMEDICINA')">ACESSAR</button></div>
+            <div class="card"><h3>🗣️ Fonoaudiologia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_FONO', 'FONOAUDIOLOGIA')">ACESSAR</button></div>
+            <div class="card"><h3>🎨 Terap. Ocupacional</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_TO', 'TERAPIA OCUPACIONAL')">ACESSAR</button></div>
+            <div class="card"><h3>☢️ Radiologia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_RADIO', 'RADIOLOGIA')">ACESSAR</button></div>
+            <div class="card"><h3>🏘️ Saúde Coletiva</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_COLETIVA', 'SAÚDE COLETIVA')">ACESSAR</button></div>
+            <div class="card"><h3>👴 Gerontologia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_GERONTO', 'GERONTOLOGIA')">ACESSAR</button></div>
+            <div class="card"><h3>🤰 Obstetrícia</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_OBSTETRA', 'OBSTETRÍCIA')">ACESSAR</button></div>
+            <div class="card"><h3>✨ Estética</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_ESTETICA', 'ESTÉTICA E COSMÉTICA')">ACESSAR</button></div>
+            <div class="card"><h3>💻 Computação/TI</h3><button class="btn btn-buy" onclick="abrirPix()">COMPRAR</button><button class="btn btn-access" onclick="irParaLogin('KEY_TI', 'COMPUTAÇÃO')">ACESSAR</button></div>
+        </div>
+    </div>
+</div>
+
+<div id="pix-modal">
+    <div class="container" style="background:#111; padding:30px; border-radius:20px; border: 2px solid var(--primary); max-width: 400px;">
+        <h2>PAGAMENTO PIX</h2>
+        <div style="background:#000; padding:15px; border:2px dashed green; font-size:22px; color:green; font-weight:bold">81999152083</div>
+        <p>Nome: Odenir de Vasconcelos Soares Filho</p>
+        <a href="https://wa.me/5581999152083" class="btn btn-buy" style="background:#25d366">ENVIAR COMPROVANTE</a>
+        <button class="btn" style="background:#333; color:#fff" onclick="fecharPix()">VOLTAR</button>
+    </div>
+</div>
+
+<div id="login" class="container" style="display:none; margin-top: 50px;">
+    <h2>🔑 Chave de Acesso</h2>
+    <input type="text" id="chave" value="">
+    <button class="btn btn-buy" onclick="verificarChave()">LIBERAR AULAS</button>
+</div>
+
+<div id="aulas" class="container" style="display:none; text-align:left">
+    <h2 id="titulo-aula" style="color:var(--primary)"></h2>
+    <div id="conteudo"></div>
+    <button class="btn btn-access" onclick="location.reload()">SAIR</button>
+</div>
+
+<script>
+    let cursoAtivo = "";
+    function abrirPix() { document.getElementById('pix-modal').style.display='flex'; }
+    function fecharPix() { document.getElementById('pix-modal').style.display='none'; }
+    function irParaLogin(key, nome) { 
+        document.getElementById('inicio').style.display='none'; 
+        document.getElementById('login').style.display='block';
+        document.getElementById('chave').value = key;
+        cursoAtivo = nome;
+    }
+
+    function verificarChave() {
+        document.getElementById('login').style.display='none';
+        document.getElementById('aulas').style.display='block';
+        const tit = document.getElementById('titulo-aula');
+        const cont = document.getElementById('conteudo');
+        tit.innerText = "CURSO COMPLETO: " + cursoAtivo;
+        
+        cont.innerHTML = `
+            <div class="aula-box"><h3>Introdução ao Conteúdo</h3><p>Este guia completo aborda os fundamentos teóricos de ${cursoAtivo}, focado em práticas profissionais e ética.</p></div>
+            <div class="aula-box"><h3>Módulo 1: Fundamentos Pro</h3><p>Estudo das bases científicas e procedimentos padrão da área de ${cursoAtivo}.</p></div>
+            <div class="aula-box"><h3>Módulo 2: Atendimento e Ética</h3><p>A importância do sigilo e do tratamento humanizado com o paciente/cliente.</p></div>
+            <div class="aula-box"><h3>Módulo 3: Prática Avançada</h3><p>Conteúdo técnico detalhado sobre as ferramentas e diagnósticos utilizados em ${cursoAtivo}.</p></div>
+        `;
+    }
+</script>
+</body>
+</html>
