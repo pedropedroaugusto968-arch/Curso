@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Cursos | IA Onisciente VIP</title>
+    <style>
+        :root { --primary: #8e2de2; --bg: #050505; --card: #111; --green: #25d366; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; overflow-x: hidden; }
+        .container { padding: 20px; max-width: 900px; margin: auto; text-align: center; }
+        
+        /* CABEÇALHO */
+        .header-box { background: linear-gradient(135deg, #1a1a1a, #000); padding: 30px; border-radius: 20px; border-bottom: 4px solid var(--primary); margin-bottom: 30px; }
+        .price-tag { background: var(--green); color: black; padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; display: inline-block; margin-top: 10px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #333; text-align: left; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        
+        .btn { display: block; width: 100%; padding: 15px; margin-top: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; font-size: 16px; transition: 0.2s; }
+        .btn-buy { background: var(--primary); color: white; }
+        .btn-buy:active { transform: scale(0.95); }
+        .btn-whatsapp { background: var(--green); color: white; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-access { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        
+        /* BOTÃO FLUTUANTE */
+        .wpp-float { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer; text-decoration: none; color: white; }
+
+        /* MODAL PIX */
+        #pix-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid var(--primary); text-align: center; }
+        
+        /* CHAT IA */
+        .chat-box { height: 450px; overflow-y: auto; padding: 15px; background: #0a0a0a; border-radius: 15px; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+        .msg { padding: 12px; border-radius: 10px; max-width: 85%; line-height: 1.5; }
+        .msg-ai { background: #222; border-left: 3px solid var(--primary); align-self: flex-start; }
+        .msg-user { background: var(--primary); align-self: flex-end; }
+    </style>
+</head>
+<body>
+
+<a href="https://wa.me/5581999152083?text=Olá, preciso de suporte com os cursos!" class="wpp-float" target="_blank">💬</a>
+
+<div id="portal">
+    <div class="container">
+        <div class="header-box">
+            <h1 style="color:var(--primary); margin:0; font-size: 2rem;">BIBLIOTECA UNIVERSAL IA</h1>
+            <div class="price-tag">APENAS R$ 26,90</div>
+            <p style="font-size: 14px; margin-top: 10px; color: #aaa;">Acesso vitalício a 17 cursos com Mentor Inteligente.</p>
+        </div>
+        <div class="grid" id="lista-cursos"></div>
+    </div>
+</div>
+
+<div id="pix-modal">
+    <div class="modal-content">
+        <h2 style="color:var(--green)">💠 PAGAMENTO PIX</h2>
+        <p>Valor: <b>R$ 26,90</b></p>
+        <div style="background: #000; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <small style="color: #666;">Chave PIX (Telefone):</small><br>
+            <b style="font-size: 1.2rem; color: var(--primary);">81999152083</b>
+        </div>
+        <p>Nome: <b>Odenir de Vasconcelos Soares Filho</b></p>
+        <a href="https://wa.me/5581999152083?text=Olá Odenir, realizei o pagamento de R$ 26,90. Segue o comprovante!" target="_blank" class="btn btn-whatsapp">
+            ENVIAR COMPROVANTE
+        </a>
+        <button class="btn btn-access" onclick="fecharPix()">VOLTAR</button>
+    </div>
+</div>
+
+<div id="login-area" class="container" style="display:none">
+    <h2 id="login-titulo" style="color:var(--primary)"></h2>
+    <input type="text" id="input-key" style="width:80%; padding:15px; border-radius:10px; background:#000; color:white; border:1px solid var(--primary); text-align:center; font-size:18px;" placeholder="COLE SUA CHAVE AQUI">
+    <button class="btn btn-buy" onclick="validar()">ENTRAR NO CURSO</button>
+    <p style="cursor:pointer; color: #666;" onclick="location.reload()">← Cancelar</p>
+</div>
+
+<div id="estudo" class="container" style="display:none">
+    <div style="background:#0d0d0d; border:1px solid var(--primary); padding:15px; border-radius:20px;">
+        <div id="chat-box" class="chat-box"></div>
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <input type="text" id="user-msg" style="flex:1; padding:15px; border-radius:10px; background:#000; color:white; border:1px solid #333;" placeholder="Faça uma pergunta técnica...">
+            <button class="btn btn-buy" style="width:70px; margin:0" onclick="enviarMsg()">OK</button>
+        </div>
+    </div>
+    <button class="btn btn-access" style="margin-top:20px; width: 120px; margin: auto;" onclick="location.reload()">SAIR</button>
+</div>
+
+<script>
+    const cursos = ["Medicina", "Enfermagem", "Odontologia", "Farmácia", "Fisioterapia", "Psicologia", "Nutrição", "Educação Física", "Biomedicina", "Fonoaudiologia", "Radiologia", "Obstetrícia", "Estética", "Computação", "Direito", "Administração", "Marketing Digital"];
+
+    const grid = document.getElementById('lista-cursos');
+    cursos.forEach(c => {
+        grid.innerHTML += `
+            <div class="card">
+                <h3>${c.toUpperCase()}</h3>
+                <button class="btn btn-buy" onclick="abrirPix()">COMPRAR AGORA</button>
+                <button class="btn btn-access" onclick="abrirLogin('${c}')">ACESSAR IA</button>
+            </div>`;
+    });
+
+    function abrirPix() { document.getElementById('pix-modal').style.display = 'flex'; }
+    function fecharPix() { document.getElementById('pix-modal').style.display = 'none'; }
+
+    function abrirLogin(n) {
+        document.getElementById('portal').style.display = 'none';
+        document.getElementById('login-area').style.display = 'block';
+        document.getElementById('login-titulo').innerText = "MENTOR IA: " + n.toUpperCase();
+    }
+
+    function validar() {
+        if(document.getElementById('input-key').value.length > 2) {
+            document.getElementById('login-area').style.display = 'none';
+            document.getElementById('estudo').style.display = 'block';
+            addMsg("ai", "Acesso autorizado. Sou sua Inteligência Artificial. Qual tópico avançado deseja explorar?");
+        } else { alert("Chave inválida! Compre seu acesso pelo PIX."); }
+    }
+
+    function addMsg(t, txt) {
+        const b = document.getElementById('chat-box');
+        b.innerHTML += `<div class="msg msg-${t}">${txt}</div>`;
+        b.scrollTop = b.scrollHeight;
+    }
+
+    function enviarMsg() {
+        const i = document.getElementById('user-msg');
+        if(!i.value) return;
+        addMsg("user", i.value);
+        const v = i.value.toLowerCase();
+        i.value = "";
+        setTimeout(() => {
+            let r = "Analisando dados... De acordo com os protocolos técnicos de 2026, a conduta correta envolve a análise de homeostase e segurança do paciente.";
+            if(v.includes("dengue")) r = "O mosquito transmissor é o **Aedes aegypti**. Ele se caracteriza pelas listras brancas e ciclo de reprodução em água parada.";
+            addMsg("ai", r);
+        }, 800);
+    }
+</script>
+</body>
+</html>
