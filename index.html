@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Cursos | Portal de Estudos</title>
+    <style>
+        :root { --primary: #8e2de2; --bg: #050505; --card: #111; }
+        body { margin: 0; font-family: sans-serif; background: var(--bg); color: white; line-height: 1.6; }
+        .container { padding: 20px; max-width: 800px; margin: auto; text-align: center; }
+        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #333; margin-bottom: 20px; text-align: left; }
+        .btn { display: block; width: 100%; padding: 15px; margin-top: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; font-size: 16px; transition: 0.3s; }
+        .btn-buy { background: var(--primary); color: white; }
+        .btn-access { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        input { width: 90%; padding: 15px; margin: 10px 0; border-radius: 8px; border: 1px solid #444; background: #000; color: #fff; font-size: 18px; text-align: center; }
+        .aula-box { background: #161625; padding: 20px; border-radius: 10px; border-left: 5px solid var(--primary); margin-bottom: 25px; text-align: left; }
+        #pix-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+    </style>
+</head>
+<body>
+
+<div id="inicio">
+    <div class="container">
+        <h1 style="color:var(--primary); font-size: 2.2rem; margin-bottom: 5px;">BIBLIOTECA UNIVERSAL</h1>
+        <p style="margin-top:0; color: #888;">Cursos completos por apenas <b>R$ 26,90</b></p>
+        
+        <div class="card">
+            <h3 style="margin-top:0">🩺 Enfermagem & Saúde</h3>
+            <p>Aprenda fundamentos de cuidados, sinais vitais e biossegurança.</p>
+            <button class="btn btn-buy" onclick="abrirPix()">COMPRAR AGORA</button>
+            <button class="btn btn-access" onclick="irParaLogin()">ACESSAR AULAS</button>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0">💻 Computação & TI</h3>
+            <p>Guia técnico sobre hardware, montagem de PCs e redes.</p>
+            <button class="btn btn-buy" onclick="abrirPix()">COMPRAR AGORA</button>
+            <button class="btn btn-access" onclick="irParaLogin()">ACESSAR AULAS</button>
+        </div>
+    </div>
+</div>
+
+<div id="pix-modal">
+    <div class="container" style="background:#111; padding:30px; border-radius:20px; border: 2px solid var(--primary); max-width: 380px;">
+        <h2 style="margin-top:0">PAGAMENTO PIX</h2>
+        <p>Copie o número abaixo:</p>
+        <div style="background:#000; padding:15px; border:2px dashed #28a745; font-size:22px; color:#28a745; font-weight:bold; margin-bottom: 15px;">81999152083</div>
+        <p style="font-size: 14px;">Nome: <b>Odenir de Vasconcelos Soares Filho</b></p>
+        <a href="https://wa.me/5581999152083?text=Olá Odenir! Acabei de fazer o PIX. Me envia a chave do curso!" target="_blank" class="btn" style="background:#25d366; color:white">ENVIAR COMPROVANTE NO WHATSAPP</a>
+        <button class="btn" style="background:#333; color:#fff; margin-top: 15px;" onclick="fecharPix()">VOLTAR</button>
+    </div>
+</div>
+
+<div id="login" class="container" style="display:none; margin-top: 60px;">
+    <h2>🔑 Chave de Acesso</h2>
+    <p>Insira a senha VIP que você recebeu:</p>
+    <input type="text" id="chave" placeholder="Ex: MASTER_SAUDE">
+    <button class="btn btn-buy" onclick="verificarChave()">LIBERAR CONTEÚDO</button>
+    <button class="btn btn-access" style="margin-top:20px; border:none" onclick="location.reload()">← VOLTAR AO INÍCIO</button>
+</div>
+
+<div id="aulas" class="container" style="display:none;">
+    <h2 id="titulo-aula" style="color:var(--primary); font-size: 1.8rem;"></h2>
+    <div id="texto-aula"></div>
+    <hr style="border: 0; border-top: 1px solid #333; margin: 40px 0;">
+    <button class="btn btn-access" onclick="location.reload()">SAIR DA CONTA</button>
+</div>
+
+<script>
+    function abrirPix() { document.getElementById('pix-modal').style.display='flex'; }
+    function fecharPix() { document.getElementById('pix-modal').style.display='none'; }
+    function irParaLogin() { document.getElementById('inicio').style.display='none'; document.getElementById('login').style.display='block'; }
+    
+    function verificarChave() {
+        const c = document.getElementById('chave').value.toUpperCase().trim();
+        const a = document.getElementById('aulas');
+        const l = document.getElementById('login');
+        const t = document.getElementById('texto-aula');
+        const tit = document.getElementById('titulo-aula');
+
+        if(c === "MASTER_SAUDE") {
+            l.style.display='none'; a.style.display='block'; tit.innerText="CURSO: ENFERMAGEM & SAÚDE";
+            t.innerHTML = `
+                <div class="aula-box"><h3>Aula 01: Sinais Vitais</h3><p>Os principais são: Pressão (12x8), Pulso (60-100 bpm) e Temperatura (36-37°C).</p></div>
+                <div class="aula-box"><h3>Aula 02: Primeiros Socorros</h3><p>Em caso de desmaio, mantenha a pessoa deitada com as pernas elevadas e verifique a respiração.</p></div>
+                <div class="aula-box"><h3>Aula 03: Biossegurança</h3><p>O uso de luvas e lavagem das mãos previne 90% das infecções em atendimentos.</p></div>`;
+        } else if(c === "MASTER_TI") {
+            l.style.display='none'; a.style.display='block'; tit.innerText="CURSO: COMPUTAÇÃO & TI";
+            t.innerHTML = `
+                <div class="aula-box"><h3>Aula 01: Montagem de PC</h3><p>A placa-mãe é a base. O processador (CPU) é o cérebro e a Memória RAM é o espaço de trabalho.</p></div>
+                <div class="aula-box"><h3>Aula 02: Armazenamento</h3><p>SSDs são até 10x mais rápidos que HDs antigos. Use SSD para instalar o Windows.</p></div>
+                <div class="aula-box"><h3>Aula 03: Redes e Wi-Fi</h3><p>O roteador deve ficar em local alto e centralizado para melhor cobertura do sinal.</p></div>`;
+        } else { alert("Chave inválida! Peça sua chave no WhatsApp."); }
+    }
+</script>
+</body>
+</html>
