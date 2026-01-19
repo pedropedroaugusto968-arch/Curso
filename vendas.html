@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odenir Sites Profissionais</title>
+    <style>
+        :root { --primary: #00d4ff; --bg: #0a0b10; --card: #161b22; --accent: #7928ca; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--bg); color: white; }
+        .container { padding: 40px 20px; max-width: 1000px; margin: auto; text-align: center; }
+        .hero h1 { font-size: 2.5rem; background: linear-gradient(90deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .grid-precos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
+        .plano-card { background: var(--card); padding: 30px; border-radius: 20px; border: 1px solid #30363d; transition: 0.3s; position: relative; overflow: hidden; }
+        .plano-card:hover { border-color: var(--primary); transform: translateY(-10px); }
+        .preco { font-size: 2.5rem; font-weight: bold; margin: 20px 0; color: var(--primary); }
+        .lista-recursos { list-style: none; padding: 0; text-align: left; font-size: 0.9rem; color: #c9d1d9; margin-bottom: 25px; }
+        .lista-recursos li::before { content: '✓ '; color: var(--primary); }
+        .btn-contratar { display: block; background: var(--primary); color: #000; text-decoration: none; padding: 15px; border-radius: 10px; font-weight: bold; }
+        .badge-popular { position: absolute; top: 10px; right: -30px; background: var(--accent); color: white; padding: 5px 40px; transform: rotate(45deg); font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>Odenir Sites Profissionais</h1>
+        <p>Crio o site ideal para o seu negócio com tecnologia de ponta.</p>
+    </div>
+    <div class="grid-precos">
+        <div class="plano-card">
+            <h3>Site Landing</h3>
+            <div class="preco">R$ 30</div>
+            <ul class="lista-recursos">
+                <li>Página Única</li>
+                <li>Botão WhatsApp</li>
+                <li>Hospedagem Grátis</li>
+            </ul>
+            <a href="https://wa.me/5581999152083?text=Olá Odenir, quero o site de R$ 30" class="btn-contratar">CONTRATAR</a>
+        </div>
+        <div class="plano-card">
+            <div class="badge-popular">POPULAR</div>
+            <h3>Site Business</h3>
+            <div class="preco">R$ 50</div>
+            <ul class="lista-recursos">
+                <li>Até 3 Seções</li>
+                <li>Links Sociais</li>
+                <li>Google Maps</li>
+            </ul>
+            <a href="https://wa.me/5581999152083?text=Olá Odenir, quero o site de R$ 50" class="btn-contratar">CONTRATAR</a>
+        </div>
+        <div class="plano-card">
+            <h3>Site Premium</h3>
+            <div class="preco">R$ 70</div>
+            <ul class="lista-recursos">
+                <li>Multi-Páginas</li>
+                <li>SEO Básico</li>
+                <li>Animações</li>
+            </ul>
+            <a href="https://wa.me/5581999152083?text=Olá Odenir, quero o site de R$ 70" class="btn-contratar">CONTRATAR</a>
+        </div>
+        <div class="plano-card">
+            <h3>Site Elite</h3>
+            <div class="preco">R$ 100</div>
+            <ul class="lista-recursos">
+                <li>Loja / Carrinho</li>
+                <li>Painel VIP</li>
+                <li>Suporte 30 dias</li>
+            </ul>
+            <a href="https://wa.me/5581999152083?text=Olá Odenir, quero o site de R$ 100" class="btn-contratar">CONTRATAR</a>
+        </div>
+    </div>
+    <footer style="margin-top: 50px; color: #444;">
+        Desenvolvido por Odenir de Vasconcelos Soares Filho
+    </footer>
+</div>
+</body>
+</html>
