@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUB DE SCRIPTS ELITE | @eoo_gomes3</title>
+    <style>
+        :root { --neon: #00ff41; --bg: #0d1117; --card: #161b22; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white; text-align: center; }
+        .status-bar { background: rgba(0, 255, 65, 0.1); padding: 10px; font-size: 0.8rem; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(5px); }
+        .header { padding: 30px 20px; background: linear-gradient(to bottom, #000, var(--bg)); border-bottom: 1px solid var(--neon); }
+        .author { color: var(--neon); font-weight: bold; letter-spacing: 2px; font-size: 1.5rem; }
+        
+        /* Menu Lateral de Jogos */
+        .tabs { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; padding: 20px; max-width: 1000px; margin: auto; }
+        .tab-btn { background: var(--card); border: 1px solid #30363d; color: white; padding: 12px; cursor: pointer; border-radius: 8px; transition: 0.3s; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .tab-btn.active { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); border-color: var(--neon); }
+
+        .script-container { max-width: 800px; margin: 20px auto; padding: 20px; display: none; animation: fadeIn 0.4s; }
+        .script-container.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .code-box { background: #000; border: 1px solid #333; padding: 15px; border-radius: 10px; text-align: left; overflow-x: auto; }
+        pre { color: #00ff41; font-size: 12px; margin: 0; white-space: pre-wrap; }
+        
+        .copy-btn { background: var(--neon); color: black; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; width: 100%; transition: 0.3s; font-size: 1rem; }
+        .copy-btn:hover { background: #00cc33; transform: scale(1.02); }
+    </style>
+</head>
+<body>
+
+<div class="status-bar">
+    SISTEMA ATIVO: R$ 11.547,56 MOVIMENTADOS | BY @eoo_gomes3
+</div>
+
+<div class="header">
+    <p class="author">BY @eoo_gomes3</p>
+    <h1>HUB DE SCRIPTS ELITE</h1>
+    <p style="font-size: 0.8rem; color: #888;">BYPASS HYPERION ATIVO | TOTAL 20 JOGOS</p>
+</div>
+
+<div class="tabs" id="tabList">
+    </div>
+
+<div id="scriptDisplay">
+    </div>
+
+<script>
+    const games = [
+        { id: "bloxfruits", name: "Blox Fruits", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/BloxFruits999M"))()' },
+        { id: "brookhaven", name: "Brookhaven", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/BrookhavenVIP"))()' },
+        { id: "pet-sim-99", name: "Pet Simulator 99", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/PetSim99"))()' },
+        { id: "adopt-me", name: "Adopt Me", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/AdoptMe"))()' },
+        { id: "blade-ball", name: "Blade Ball", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/BladeBall"))()' },
+        { id: "doors", name: "Doors", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/Doors"))()' },
+        { id: "murder-mystery-2", name: "Murder Mystery 2", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/MM2"))()' },
+        { id: "bedwars", name: "Bedwars", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/Bedwars"))()' },
+        { id: "jailbreak", name: "Jailbreak", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/Jailbreak"))()' },
+        { id: "arsenal", name: "Arsenal", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/Arsenal"))()' },
+        { id: "da-hood", name: "Da Hood", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/DaHood"))()' },
+        { id: "beehive", name: "Bee Swarm Sim", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/BeeSwarm"))()' },
+        { id: "all-star", name: "All Star Tower Defense", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/ASTD"))()' },
+        { id: "anime-adventures", name: "Anime Adventures", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/AnimeAdv"))()' },
+        { id: "fruit-battlegrounds", name: "Fruit Battlegrounds", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/FruitBattle"))()' },
+        { id: "ps99-trading", name: "PS99 Trade Sniper", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/TradeSniper"))()' },
+        { id: "king-legacy", name: "King Legacy", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/KingLegacy"))()' },
+        { id: "shindo-life", name: "Shindo Life", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/Shindo"))()' },
+        { id: "natural-disaster", name: "Natural Disaster", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/NaturalD"))()' },
+        { id: "evade", name: "Evade", script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/OdenirElite/Main/Evade"))()' }
+    ];
+
+    const tabList = document.getElementById('tabList');
+    const display = document.getElementById('scriptDisplay');
+
+    function loadGames() {
+        games.forEach((game, index) => {
+            const btn = document.createElement('button');
+            btn.className = `tab-btn ${index === 0 ? 'active' : ''}`;
+            btn.innerText = game.name;
+            btn.onclick = (e) => showScript(game.id, e.target);
+            tabList.appendChild(btn);
+
+            const container = document.createElement('div');
+            container.id = game.id;
+            container.className = `script-container ${index === 0 ? 'active' : ''}`;
+            container.innerHTML = `
+                <h3>${game.name.toUpperCase()} VIP</h3>
+                <div class="code-box">
+                    <pre id="code-${game.id}">-- BY @eoo_gomes3\n-- NIVEL 999.999.998 INDETECTAVEL\n${game.script}</pre>
+                </div>
+                <button class="copy-btn" onclick="copyCode('code-${game.id}')">COPIAR SCRIPT</button>
+            `;
+            display.appendChild(container);
+        });
+    }
+
+    function showScript(id, btn) {
+        document.querySelectorAll('.script-container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    function copyCode(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text);
+        alert("Script copiado! BY @eoo_gomes3");
+    }
+
+    loadGames();
+</script>
+
+</body>
+</html>
